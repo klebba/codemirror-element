@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', evt => {
-  const editors = document.querySelectorAll('codemirror-element');
+  const editors = document.querySelectorAll('notebook-editor');
+
+  const CodeMirror = editors[0].api;
+  // configure(CodeMirror);
 
   editors[0].source = 'function myScript() { return 100; }\n';
   editors[1].source = `print("Hello World.")
@@ -14,4 +17,7 @@ document.addEventListener('DOMContentLoaded', evt => {
 
   // console.log(editors[1].api)
   // console.log(editors[1].editor)
+
+  const cm = document.querySelector('codemirror-element');
+  cm.source = `const foo = "bar";`;
 });

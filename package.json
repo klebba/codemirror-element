@@ -2,13 +2,14 @@
   "name": "@klebba/codemirror-element",
   "author": "Casey Klebba",
   "description": "Custom Element for CodeMirror.",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0-rc.2",
   "license": "MIT",
   "repository": "klebba/codemirror-element",
   "main": "codemirror-element.js",
   "module": "codemirror-element.js",
   "scripts": {
     "start": "element-server",
+    "build": "npm run build",
     "lint": "eslint --quiet .",
     "lint-strict": "eslint ."
   },
@@ -20,7 +21,6 @@
     "/index.js"
   ],
   "dependencies": {
-    "@klebba/x-element": "1.0.0-rc.7",
     "codemirror": "git://github.com/codemirror/CodeMirror.git#master"
   },
   "devDependencies": {
