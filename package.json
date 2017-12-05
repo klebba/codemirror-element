@@ -2,7 +2,7 @@
   "name": "@klebba/codemirror-element",
   "author": "Casey Klebba",
   "description": "Custom Element for CodeMirror.",
-  "version": "1.0.0-rc.5",
+  "version": "1.0.0-rc.6",
   "license": "MIT",
   "repository": "klebba/codemirror-element",
   "main": "codemirror-element.js",
@@ -24,7 +24,7 @@
     "/index.js"
   ],
   "dependencies": {
-    "codemirror": "git://github.com/codemirror/CodeMirror.git#master"
+    "codemirror": "^5.32.0"
   },
   "devDependencies": {
     "@klebba/element-server": "^1.0.3",
