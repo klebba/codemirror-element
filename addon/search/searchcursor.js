@@ -11,8 +11,11 @@ export default function (CodeMirror) {
       + (regexp.multiline ? "m" : "")
   }
 
-  function ensureGlobal(regexp) {
-    return regexp.global ? regexp : new RegExp(regexp.source, regexpFlags(regexp) + "g")
+  function ensureFlags(regexp, flags) {
+    var current = regexpFlags(regexp), target = current
+    for (var i = 0; i < flags.length; i++) if (target.indexOf(flags.charAt(i)) == -1)
+      target += flags.charAt(i)
+    return current == target ? regexp : new RegExp(regexp.source, target)
   }
 
   function maybeMultiline(regexp) {
@@ -20,7 +23,7 @@ export default function (CodeMirror) {
   }
 
   function searchRegexpForward(doc, regexp, start) {
-    regexp = ensureGlobal(regexp)
+    regexp = ensureFlags(regexp, "g")
     for (var line = start.line, ch = start.ch, last = doc.lastLine(); line <= last; line++, ch = 0) {
       regexp.lastIndex = ch
       var string = doc.getLine(line), match = regexp.exec(string)
@@ -34,7 +37,7 @@ export default function (CodeMirror) {
   function searchRegexpForwardMultiline(doc, regexp, start) {
     if (!maybeMultiline(regexp)) return searchRegexpForward(doc, regexp, start)
 
-    regexp = ensureGlobal(regexp)
+    regexp = ensureFlags(regexp, "gm")
     var string, chunk = 1
     for (var line = start.line, last = doc.lastLine(); line <= last;) {
       // This grows the search buffer in exponentially-sized chunks
@@ -43,6 +46,7 @@ export default function (CodeMirror) {
       // searching for something that has tons of matches), but at the
       // same time, the amount of retries is limited.
       for (var i = 0; i < chunk; i++) {
+        if (line > last) break
         var curLine = doc.getLine(line++)
         string = string == null ? curLine : string + "\n" + curLine
       }
@@ -73,7 +77,7 @@ export default function (CodeMirror) {
   }
 
   function searchRegexpBackward(doc, regexp, start) {
-    regexp = ensureGlobal(regexp)
+    regexp = ensureFlags(regexp, "g")
     for (var line = start.line, ch = start.ch, first = doc.firstLine(); line >= first; line--, ch = -1) {
       var string = doc.getLine(line)
       if (ch > -1) string = string.slice(0, ch)
@@ -86,7 +90,7 @@ export default function (CodeMirror) {
   }
 
   function searchRegexpBackwardMultiline(doc, regexp, start) {
-    regexp = ensureGlobal(regexp)
+    regexp = ensureFlags(regexp, "gm")
     var string, chunk = 1
     for (var line = start.line, first = doc.firstLine(); line >= first;) {
       for (var i = 0; i < chunk; i++) {
@@ -205,7 +209,7 @@ export default function (CodeMirror) {
         return (reverse ? searchStringBackward : searchStringForward)(doc, query, pos, caseFold)
       }
     } else {
-      query = ensureGlobal(query)
+      query = ensureFlags(query, "gm")
       if (!options || options.multiline !== false)
         this.matches = function(reverse, pos) {
           return (reverse ? searchRegexpBackwardMultiline : searchRegexpForwardMultiline)(doc, query, pos)

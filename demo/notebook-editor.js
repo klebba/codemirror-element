@@ -13,6 +13,7 @@ import ModeR from '../mode/r/r.js';
 import ModeRuby from '../mode/ruby/ruby.js';
 import ModeShell from '../mode/shell/shell.js';
 import ModeSql from '../mode/sql/sql.js';
+import ModeYaml from '../mode/yaml/yaml.js';
 
 // load addons
 import AddonComment from '../addon/comment/comment.js';
@@ -36,6 +37,7 @@ ModeR(CodeMirror);
 ModeRuby(CodeMirror);
 ModeShell(CodeMirror);
 ModeSql(CodeMirror);
+ModeYaml(CodeMirror);
 
 // inject addons
 AddonComment(CodeMirror);

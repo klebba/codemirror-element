@@ -214,18 +214,20 @@ export default function (CodeMirror) {
       prevItem = separator[i];
     }
 
-    var query = doc.getRange(validRange.start, validRange.end, false);
+    if (validRange.start) {
+      var query = doc.getRange(validRange.start, validRange.end, false);
 
-    for (var i = 0; i < query.length; i++) {
-      var lineText = query[i];
-      eachWord(lineText, function(word) {
-        var wordUpperCase = word.toUpperCase();
-        if (wordUpperCase === aliasUpperCase && getTable(previousWord))
-          table = previousWord;
-        if (wordUpperCase !== CONS.ALIAS_KEYWORD)
-          previousWord = word;
-      });
-      if (table) break;
+      for (var i = 0; i < query.length; i++) {
+        var lineText = query[i];
+        eachWord(lineText, function(word) {
+          var wordUpperCase = word.toUpperCase();
+          if (wordUpperCase === aliasUpperCase && getTable(previousWord))
+            table = previousWord;
+          if (wordUpperCase !== CONS.ALIAS_KEYWORD)
+            previousWord = word;
+        });
+        if (table) break;
+      }
     }
     return table;
   }
@@ -265,8 +267,8 @@ export default function (CodeMirror) {
     if (search.charAt(0) == "." || search.charAt(0) == identifierQuote) {
       start = nameCompletion(cur, token, result, editor);
     } else {
-      addMatches(result, search, tables, function(w) {return w;});
       addMatches(result, search, defaultTable, function(w) {return w;});
+      addMatches(result, search, tables, function(w) {return w;});
       if (!disableKeywords)
         addMatches(result, search, keywords, function(w) {return w.toUpperCase();});
     }

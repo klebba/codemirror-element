@@ -9,7 +9,6 @@
   "module": "codemirror-element.js",
   "scripts": {
     "start": "element-server",
-    "build": "npm run build",
     "lint": "eslint --quiet .",
     "lint-strict": "eslint ."
   },
@@ -24,10 +23,10 @@
     "/index.js"
   ],
   "dependencies": {
-    "codemirror": "^5.32.0"
+    "codemirror": "^5.35.0"
   },
   "devDependencies": {
-    "@klebba/element-server": "^1.0.4",
+    "@klebba/element-server": "^1.0.5",
     "eslint": "^4.13.1",
     "eslint-config-klebba": "^1.0.3"
   }

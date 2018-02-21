@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', evt => {
   const editors = document.querySelectorAll('notebook-editor');
 
   const CodeMirror = editors[0].api;
-  // configure(CodeMirror);
 
   editors[0].source = 'function myScript() { return 100; }\n';
   editors[1].source = `print("Hello World.")
