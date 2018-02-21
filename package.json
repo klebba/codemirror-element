@@ -2,7 +2,7 @@
   "name": "@klebba/codemirror-element",
   "author": "Casey Klebba",
   "description": "Custom Element for CodeMirror.",
-  "version": "1.0.0-rc.7",
+  "version": "1.0.0-rc.8",
   "license": "MIT",
   "repository": "klebba/codemirror-element",
   "main": "codemirror-element.js",
