@@ -54,6 +54,10 @@ export default class CodeMirrorElement extends HTMLElement {
     }
   }
 
+  connectedCallback() {
+    this.editor.refresh();
+  }
+
   attributeChangedCallback(attr, oldValue, newValue) {
     if (this.mode !== newValue) {
       this.mode = newValue;

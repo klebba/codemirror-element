@@ -1,5 +1,5 @@
-document.addEventListener('DOMContentLoaded', evt => {
-  const editors = document.querySelectorAll('notebook-editor');
+document.addEventListener('DOMContentLoaded', () => {
+  const editors = document.querySelectorAll('custom-editor');
 
   const CodeMirror = editors[0].api;
 

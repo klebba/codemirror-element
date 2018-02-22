@@ -1,4 +1,3 @@
-import CodeMirror from '../../../codemirror/src/codemirror.js';
 import CodeMirrorElement from '../codemirror-element.js';
 
 // load modes
@@ -25,31 +24,41 @@ import AddonHintAnywordHint from '../addon/hint/anyword-hint.js';
 import AddonSearch from '../addon/search/search.js';
 import AddonSearchCursor from '../addon/search/searchcursor.js';
 
-// inject modes
-ModeClike(CodeMirror);
-ModeCss(CodeMirror);
-ModeGfm(CodeMirror);
-ModeJavascript(CodeMirror);
-ModeJulia(CodeMirror);
-ModeMarkdown(CodeMirror);
-ModePython(CodeMirror);
-ModeR(CodeMirror);
-ModeRuby(CodeMirror);
-ModeShell(CodeMirror);
-ModeSql(CodeMirror);
-ModeYaml(CodeMirror);
+export default class CustomEditorElement extends CodeMirrorElement {
+  constructor() {
+    super();
+    const CodeMirror = this.api;
+    // inject modes
+    ModeClike(CodeMirror);
+    ModeCss(CodeMirror);
+    ModeGfm(CodeMirror);
+    ModeJavascript(CodeMirror);
+    ModeJulia(CodeMirror);
+    ModeMarkdown(CodeMirror);
+    ModePython(CodeMirror);
+    ModeR(CodeMirror);
+    ModeRuby(CodeMirror);
+    ModeShell(CodeMirror);
+    ModeSql(CodeMirror);
+    ModeYaml(CodeMirror);
 
-// inject addons
-AddonComment(CodeMirror);
-AddonDialog(CodeMirror);
-AddonEditCloseBrackets(CodeMirror);
-AddonEditMatchBrackets(CodeMirror);
-AddonHintShowHint(CodeMirror);
-AddonHintAnywordHint(CodeMirror);
-AddonSearch(CodeMirror);
-AddonSearchCursor(CodeMirror);
+    // inject addons
+    AddonComment(CodeMirror);
+    AddonDialog(CodeMirror);
+    AddonEditCloseBrackets(CodeMirror);
+    AddonEditMatchBrackets(CodeMirror);
+    AddonHintShowHint(CodeMirror);
+    AddonHintAnywordHint(CodeMirror);
+    AddonSearch(CodeMirror);
+    AddonSearchCursor(CodeMirror);
+  }
 
-export default class NotebookEditorElement extends CodeMirrorElement {
+  connectedCallback() {
+    super.connectedCallback();
+    this.editor.setOption('viewportMargin', Infinity);
+    this.editor.refresh();
+  }
+
   get stylesheet() {
     const codemirror = super.stylesheet;
 
@@ -132,9 +141,9 @@ export default class NotebookEditorElement extends CodeMirrorElement {
       opacity: .5;
     }`;
 
-    const custom = `.CodeMirror-gutters { background-color: cyan }`;
+    const custom = `.CodeMirror { height: auto; }`;
     return [codemirror, dialog, hints, searchmatch, custom].join('\n');
   }
 }
 
-customElements.define('notebook-editor', NotebookEditorElement);
+customElements.define('custom-editor', CustomEditorElement);
